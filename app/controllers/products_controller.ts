@@ -29,8 +29,10 @@ export default class ProductsController {
     return response.status(201).json(product)
   }
 
-  async index({ response }: HttpContext) {
-    let products = await Product.all()
+  async index({ request, response }: HttpContext) {
+    const qs = request.qs()
+
+    let products = await Product.findManyBy(qs)
     return response.json(products)
   }
 
